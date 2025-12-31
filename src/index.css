@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Using the provided 'Inter Variable' source but naming it 'Inter Display' as requested */
+@font-face {
+  font-family: 'Inter Display';
+  src: url('https://cdn.thekzbn.name.ng/assets/font/InterVariable.woff2') format('woff2'),
+       url('https://cdn.thekzbn.name.ng/assets/font/InterVariable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter Display';
+  src: url('https://cdn.thekzbn.name.ng/assets/font/InterVariable-Italic.woff2') format('woff2'),
+       url('https://cdn.thekzbn.name.ng/assets/font/InterVariable-Italic.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --purity:   #ffffff;
+  --serenity: #f4ebd0;
+  --depth:    #122620;
+  --radiance: #d6ad60;
+  --heritage: #b68d40;
+
+  /* Absolute Typography: Inter Display only */
+  font-family: 'Inter Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-feature-settings: "cv01" 1, "cv02" 1, "cv03" 1, "cv04" 1, "cv05" 1,
+                         "cv06" 1, "cv07" 1, "cv08" 1, "cv09" 1, "cv10" 1,
+                         "cv11" 1, "cv12" 1, "cv13" 1, "cv14" 1,
+                         "liga" 1, "calt" 1, "zero" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --purity:   #121212;
+    --serenity: #2d2d2d;
+    --depth:    #f4ebd0;
+    --radiance: #d6ad60;
+    --heritage: #e6c97a;
+  }
+}
+
+body {
+  margin: 0;
+  background-color: var(--purity);
+  color: var(--depth);
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--depth);
+}
+
+a {
+  color: var(--radiance);
+  text-decoration: none;
+  transition: color 0.5s cubic-bezier(0.57, -0.01, 0.21, 0.89);
+}
+
+a:hover {
+  color: var(--heritage);
+}
+
+/* Forcing Inter Display on everything */
+code,
+pre,
+kbd,
+samp {
+  font-family: 'Inter Display', sans-serif !important;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--purity);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--serenity);
+  border-radius: 0.25rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--heritage);
+}
