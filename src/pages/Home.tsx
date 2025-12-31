@@ -4,12 +4,14 @@ import { analyzeWords } from '../utils/analysis';
 import wordList from '../data/top-5000-words.json';
 import { BentoGrid, BentoItem } from '../components/Bento';
 import { SimpleBarChart } from '../components/Charts';
-import { Hash, Activity, Compass, Fingerprint, PieChart, ArrowUpRight, Download, ChevronDown, ChevronUp, Github, Twitter, Globe } from 'lucide-react';
+import { Hash, Activity, Compass, Fingerprint, PieChart, ArrowUpRight, Download, ChevronDown, ChevronUp, Github, Twitter, Globe, PenTool } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { GitHubModal } from '../components/GitHubModal';
 
 export const Home = () => {
   const navigate = useNavigate();
   const [showThesis, setShowThesis] = useState(false);
+  const [isGitHubModalOpen, setIsGitHubModalOpen] = useState(false);
   const data = useMemo(() => analyzeWords(wordList as string[]), []);
 
   const topLetters = data.overall.slice(0, 12).map(i => ({ name: i.letter, value: i.count }));
@@ -20,11 +22,23 @@ export const Home = () => {
   return (
     <div className="min-h-screen bg-purity text-depth font-sans p-6 md:p-12 transition-colors duration-500">
       
+      {/* GitHub Modal */}
+      <GitHubModal isOpen={isGitHubModalOpen} onClose={() => setIsGitHubModalOpen(false)} />
+
       {/* Header */}
       <header className="max-w-7xl mx-auto mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div>
-            <div className="text-xs font-bold uppercase tracking-[0.2em] text-radiance mb-2">
-              English Analysis / @thekzbn
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between md:justify-start gap-6">
+              <div className="text-xs font-bold uppercase tracking-[0.2em] text-radiance">
+                English Analysis / @thekzbn
+              </div>
+              <button 
+                onClick={() => setIsGitHubModalOpen(true)}
+                className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-depth/40 hover:text-radiance transition-colors duration-500 group"
+              >
+                <PenTool size={12} />
+                <span>Edit on GitHub</span>
+              </button>
             </div>
             <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-depth leading-none">
               Top 5000<br/>
@@ -39,7 +53,6 @@ export const Home = () => {
 
       <main className="max-w-7xl mx-auto">
         <BentoGrid>
-          {/* Letter Frequency */}
           <BentoItem
             colSpan={5}
             rowSpan={2}
@@ -55,7 +68,6 @@ export const Home = () => {
              </div>
           </BentoItem>
 
-          {/* Word Structures */}
           <BentoItem
             colSpan={3}
             rowSpan={2}
@@ -80,7 +92,6 @@ export const Home = () => {
              </div>
           </BentoItem>
 
-          {/* Starting Letters */}
           <BentoItem
             colSpan={3}
             title="Starting Letters"
@@ -95,7 +106,6 @@ export const Home = () => {
              </div>
           </BentoItem>
 
-          {/* Double Consonants */}
           <BentoItem
             colSpan={3}
             title="Double Consonants"
@@ -123,7 +133,6 @@ export const Home = () => {
              </div>
           </BentoItem>
 
-          {/* Vowel Saturation */}
           <BentoItem
             colSpan={2}
             title="Vowel Saturation"
@@ -147,7 +156,6 @@ export const Home = () => {
 
         </BentoGrid>
 
-        {/* Project Thesis Section */}
         <section className="mt-24 max-w-readable mx-auto">
              <div className="flex items-center gap-4 py-4 border-b border-serenity">
                 <h2 className="text-xs font-bold uppercase tracking-widest text-depth/80">Project Thesis</h2>
@@ -181,11 +189,13 @@ export const Home = () => {
              </AnimatePresence>
         </section>
 
-        {/* Footer */}
         <footer className="mt-24 border-t border-serenity pt-8 flex flex-col md:flex-row justify-between items-center text-xs uppercase tracking-widest text-depth/50 font-medium max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row items-center gap-6 mb-4 md:mb-0">
                  <span>2025 @thekzbn</span>
                  <div className="flex items-center gap-4">
+                    <button onClick={() => setIsGitHubModalOpen(true)} className="hover:text-radiance transition duration-500 flex items-center gap-1 uppercase tracking-widest text-[10px] font-bold bg-transparent border-none p-0 cursor-pointer">
+                        <PenTool size={14} /> Edit
+                    </button>
                     <a href="https://github.com/thekzbn/" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1">
                         <Github size={14} /> GitHub
                     </a>

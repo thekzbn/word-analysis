@@ -6,6 +6,7 @@ export default {
   ],
   darkMode: 'class', 
   theme: {
+    // Explicitly defining colors to match the Golden Anchor system
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
@@ -18,30 +19,32 @@ export default {
       white: '#ffffff',
       black: '#000000',
     },
-    fontFamily: {
-      sans: ['"Inter Variable"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI Variable Display"', '"Segoe UI"', 'sans-serif'],
-      mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
-    },
     // The strict six-step scale from Tiara Brand Guide
     spacing: {
       '0': '0',
       'px': '1px',
-      '1': '0.25rem', // Tiny inline gaps
-      '2': '0.5rem',  // Button padding
-      '3': '0.75rem', // Standard component padding / Text gaps
-      '4': '1rem',    // Medium groups / Inter-card gap
-      '6': '1.5rem',  // Major section breaks / Container padding
+      '1': '0.25rem',   
+      '1.5': '0.375rem', 
+      '2': '0.5rem',    
+      '3': '0.75rem',   
+      '4': '1rem',      
+      '6': '1.5rem',    
       '8': '2rem',
-      '12': '3rem',   // Hero to content
+      '12': '3rem',     
       '16': '4rem',
-      '24': '6rem',   // Big padding
+      '24': '6rem',     
       'full': '100%',
       'screen': '100vh',
     },
+    // Placing fontFamily at top level to ensure absolute control
+    fontFamily: {
+      sans: ['"Inter Display"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+      mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+    },
     extend: {
       borderRadius: {
-        'sm': '0.25rem', // Small UI elements
-        'DEFAULT': '1rem', // Main cards
+        'sm': '0.25rem', 
+        'DEFAULT': '1rem', 
         'none': '0',
       },
       maxWidth: {

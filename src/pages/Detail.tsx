@@ -3,8 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { analyzeWords } from '../utils/analysis';
 import wordList from '../data/top-5000-words.json';
 import { SimpleBarChart } from '../components/Charts';
-import { ArrowLeft, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowLeft, X, ChevronDown, ChevronUp, PenTool } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { GitHubModal } from '../components/GitHubModal';
 
 export const Detail = () => {
   const { type } = useParams();
@@ -12,6 +13,7 @@ export const Detail = () => {
   const data = useMemo(() => analyzeWords(wordList as string[]), []);
   const [selectedPattern, setSelectedPattern] = useState<{pattern: string, words: string[]} | null>(null);
   const [showDesc, setShowDesc] = useState(false);
+  const [isGitHubModalOpen, setIsGitHubModalOpen] = useState(false);
 
   const getPageInfo = () => {
     switch (type) {
@@ -195,7 +197,7 @@ export const Detail = () => {
                                         <div className="text-2xl font-bold text-heritage tracking-widest uppercase">{grp.shortest}</div>
                                     </div>
                                 </div>
-                                <div>
+                                <div className="mt-4">
                                     <span className="text-[10px] uppercase font-bold tracking-widest text-depth/70 mb-2 block">Sample Set</span>
                                     <div className="flex flex-wrap gap-2">
                                         {grp.words.slice(0, 30).map(w => (
@@ -218,14 +220,25 @@ export const Detail = () => {
 
   return (
     <div className="min-h-screen p-6 md:p-12 bg-purity text-depth font-sans selection:bg-radiance selection:text-depth transition-colors duration-500">
+        <GitHubModal isOpen={isGitHubModalOpen} onClose={() => setIsGitHubModalOpen(false)} />
+        
         <div className="max-w-7xl mx-auto">
-             <button 
-                onClick={() => navigate('/')}
-                className="flex items-center gap-2 mb-12 text-[10px] font-bold uppercase tracking-[0.2em] text-radiance hover:text-heritage transition duration-500 ease-tiara group"
-            >
-                <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-                Return to Matrix
-            </button>
+             <div className="flex justify-between items-center mb-12">
+               <button 
+                  onClick={() => navigate('/')}
+                  className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-radiance hover:text-heritage transition duration-500 ease-tiara group"
+               >
+                  <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+                  Return to Matrix
+               </button>
+               <button 
+                  onClick={() => setIsGitHubModalOpen(true)}
+                  className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-depth/40 hover:text-radiance transition-colors duration-500"
+               >
+                  <PenTool size={12} />
+                  <span>Edit on GitHub</span>
+               </button>
+             </div>
 
             <section className="mb-12">
                  <div className="flex items-center gap-4 py-4">
