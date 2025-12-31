@@ -273,6 +273,35 @@ export const Detail = () => {
             >
                 {renderContent()}
             </motion.div>
+
+            {/* Footer */}
+            <footer className="mt-24 border-t border-serenity pt-8 flex flex-col md:flex-row justify-between items-center text-xs uppercase tracking-widest text-depth/50 font-medium">
+                <div className="flex flex-col md:flex-row items-center gap-6 mb-4 md:mb-0">
+                    <span>2025 @thekzbn</span>
+                    <div className="flex items-center gap-4">
+                        <button onClick={() => setIsGitHubModalOpen(true)} className="hover:text-radiance transition duration-500 flex items-center gap-1 uppercase tracking-widest text-[10px] font-bold bg-transparent border-none p-0 cursor-pointer">
+                            <PenTool size={14} /> Edit
+                        </button>
+                        <a href="https://github.com/thekzbn/" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1">
+                            <Github size={14} /> GitHub
+                        </a>
+                        <a href="https://x.com/thekzbn_me" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1">
+                            <Twitter size={14} /> X
+                        </a>
+                        <a href="https://thekzbn.name.ng" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1">
+                            <Globe size={14} /> My Site
+                        </a>
+                    </div>
+                </div>
+                <a 
+                    href="/top-5000-words.txt" 
+                    download 
+                    className="flex items-center gap-1 hover:text-radiance transition duration-500 ease-tiara"
+                >
+                    <Download size={14} />
+                    Raw Data (.txt)
+                </a>
+            </footer>
         </div>
     </div>
   );
