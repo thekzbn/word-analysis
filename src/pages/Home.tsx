@@ -4,7 +4,7 @@ import { analyzeWords } from '../utils/analysis';
 import wordList from '../data/top-5000-words.json';
 import { BentoGrid, BentoItem } from '../components/Bento';
 import { SimpleBarChart } from '../components/Charts';
-import { Hash, Activity, Compass, Fingerprint, PieChart, ArrowUpRight, Download, ChevronDown, ChevronUp } from 'lucide-react';
+import { Hash, Activity, Compass, Fingerprint, PieChart, ArrowUpRight, Download, ChevronDown, ChevronUp, Github, Twitter, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const Home = () => {
@@ -183,8 +183,19 @@ export const Home = () => {
 
         {/* Footer */}
         <footer className="mt-24 border-t border-serenity pt-8 flex flex-col md:flex-row justify-between items-center text-xs uppercase tracking-widest text-depth/50 font-medium max-w-7xl mx-auto">
-            <div className="mb-4 md:mb-0">
-                 2025 @thekzbn
+            <div className="flex flex-col md:flex-row items-center gap-6 mb-4 md:mb-0">
+                 <span>2025 @thekzbn</span>
+                 <div className="flex items-center gap-4">
+                    <a href="https://github.com/thekzbn/" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1">
+                        <Github size={14} /> GitHub
+                    </a>
+                    <a href="https://x.com/thekzbn_me" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1">
+                        <Twitter size={14} /> X
+                    </a>
+                    <a href="https://thekzbn.name.ng" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1">
+                        <Globe size={14} /> My Site
+                    </a>
+                 </div>
             </div>
             <a 
                 href="/top-5000-words.txt" 
