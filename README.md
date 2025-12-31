@@ -1,40 +1,52 @@
-# Top 5000 Words
-**Author**: Ayomide Deji-Adeyale (@thekzbn)  
-**Project Type**: Linguistic Analysis Suite
+# English Analysis
 
-A structural autopsy of the 5,000 most frequently used words in the English language. This tool identifies orthographic habits and phonetic skeletons through data visualization and pattern extraction.
+**Author**: Ayomide Deji-Adeyale (@thekzbn)
+**Project type**: Linguistic analysis suite
 
-## Core Features
-- **Grapheme Analysis**: Distribution of letters across Onset, Nucleus, and Terminus positions.
-- **Structural Taxonomy**: Categorization of words by Vowel-Consonant patterns (e.g., CVCV).
-- **Cluster Detection**: Tracking of geminate consonants and their frequency.
-- **Vowel Saturation**: Identification of phonetically complex specimens.
+English Analysis is a structural examination of the 5,000 most frequently used words in the English language. The project treats vocabulary as data. Words are decomposed into graphemes, positional roles, and phonetic patterns, then measured, classified, and visualised.
 
-## Design Philosophy
-This project employs the **bored** design language: expensive nothingness. It prioritizes data density, restraint, and the user as king.
-- **Typography**: Inter Display Variable.
-- **Palette**: The Golden Anchor (Purity, Serenity, Depth, Radiance, Heritage).
-- **Geometry**: Strict 1px borders, 1rem radii, and absolute spacing scales.
+The aim is not pedagogy or opinion, but exposure. This repository shows what English actually looks like when stripped of sentiment and inspected at scale.
 
-## Technical Stack
-- **Frontend**: React 19 + TypeScript.
-- **Styles**: Tailwind CSS.
-- **Charts**: Recharts.
-- **Animation**: Framer Motion.
+## Scope of analysis
+
+The system analyses letter distribution across onset, nucleus, and terminus positions, allowing positional bias to be observed rather than assumed. Words are classified by vowel and consonant structure, making recurring forms visible without reference to meaning.
+
+Geminate consonants and other orthographic clusters are detected and counted. Vowel density is measured to surface words with higher phonetic load relative to length.
+
+All results are derived from the corpus itself. No heuristic adjustments are applied.
+
+## Design
+
+The interface follows the **bored** design language.
+
+The visual system is intentionally restrained. Data density is prioritised. Nothing moves unless motion is required to preserve clarity. Colour is applied only where it communicates structure or state. The interface exists to serve inspection, not to attract attention.
+
+Typography, spacing, geometry, and contrast conform strictly to the Tiara system. The user is treated as an adult reader.
+
+## Technical overview
+
+The frontend is built with React 19 and TypeScript. Styling is implemented with Tailwind CSS. Charts are rendered using Recharts. Motion, where required, uses Framer Motion and respects reduced-motion preferences.
+
+The system is client-side and deterministic. Given the same input, it produces the same output.
 
 ## Documentation
-Technical documentation for developers, including a line-by-line explanation of the analysis algorithm, is available in the `docs/` directory:
-- [**Documentation Overview**](./docs/README.md)
-- [**Algorithm Autopsy**](./docs/Algorithm.md)
+
+Detailed technical documentation is maintained in the `docs/` directory. This includes an overview of the system, a step-by-step explanation of the analysis algorithm, and implementation details.
+
+* Documentation overview: `docs/README.md`
+* Algorithm description: `docs/Algorithm.md`
 
 ## Development
-To initialize the environment and start the analysis suite:
+
+Install dependencies and start the local development environment:
+
 ```bash
 npm install
 npm run dev
 ```
 
----
-**Identity**: Developed independently by Ayomide Deji-Adeyale (@thekzbn).  
-**Github**: [github.com/thekzbn](https://github.com/thekzbn/)  
-**Web**: [thekzbn.name.ng](https://thekzbn.name.ng)
+## Identity
+
+Developed independently by Ayomide Deji-Adeyale (@thekzbn).<br>
+GitHub: [https://github.com/thekzbn](https://github.com/thekzbn) <br>
+Web: [https://thekzbn.name.ng](https://thekzbn.name.ng)

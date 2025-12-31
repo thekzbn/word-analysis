@@ -24,7 +24,7 @@ export const Home = () => {
       <header className="max-w-7xl mx-auto mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <div className="text-xs font-bold uppercase tracking-[0.2em] text-radiance mb-2">
-              Linguistic Analysis / @thekzbn
+              English Analysis / @thekzbn
             </div>
             <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-depth leading-none">
               Top 5000<br/>

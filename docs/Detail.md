@@ -1,42 +1,46 @@
 # Detail View Architecture
-**Author**: Ayomide Deji-Adeyale (@thekzbn)  
+
+**Author**: Ayomide Deji-Adeyale (@thekzbn)
 **File**: `src/pages/Detail.tsx`
 
-The Detail view is a dynamic component that provides a granular inspection of specific linguistic categories. It prioritizes data density and comparative analysis.
+The Detail view renders focused inspections of individual analysis categories. Each view exposes the full dataset for its category and supports comparison without introducing additional abstraction layers.
 
----
+## Routing
 
-## 1. Dynamic Routing
-The component uses `useParams` to identify the current analysis context.
-- **Path**: `/details/:type`
-- **Mechanism**: A `switch` statement evaluates the `:type` parameter to return the appropriate sub-layout (e.g., `letters`, `patterns`, `vowels`).
+Routing is parameter-driven. The active analysis type is read from the URL and determines which layout and data slice are rendered.
 
----
+The route shape is `/details/:type`. The `type` parameter is evaluated explicitly and mapped to a corresponding view. Unsupported values resolve to a safe fallback.
 
-## 2. Special Components & Logic
+No data is recomputed during navigation.
 
-### Phonological Pattern Modal
-- **Logic**: When a user clicks a pattern card (e.g., "CVCV"), the `selectedPattern` state is updated.
-- **Word Filtering**: The modal displays every single word from the 5,000-word list that matches the selected structure.
-- **UI**: A fixed-position overlay with a backdrop blur. It uses `overflow-y-auto` to allow scrolling through long lists of words.
+## Pattern inspection
+
+### Structural pattern modal
+
+Pattern cards are interactive. Selecting a card updates a local state value representing the active pattern. This state controls the visibility and content of the modal.
+
+The modal lists every word from the corpus that matches the selected structure. Filtering is performed against precomputed pattern groups. No additional passes over the word list occur at this stage.
+
+The modal is rendered as a fixed overlay. Long lists are scrollable. The background is visually suppressed without introducing visual noise.
+
+## Positional metrics
 
 ### PositionMetric
-A custom sub-component used in the Character Distribution view.
-- **Logic**: It visualizes the positional probability of a letter.
-- **UI**: A thin 1px horizontal progress bar where the filled portion (`--radiance`) represents the percentage of time that letter appears in a specific position (Start, Middle, or End).
 
-### SimpleBarChart (Comparative Mode)
-In the Positional Matrix view, two bar charts are placed side-by-side.
-- **Onset Chart**: Displays characters most likely to start a word.
-- **Coda Chart**: Displays characters most likely to end a word.
-- **Purpose**: This layout is designed to help the user identify "bookend" trends in English word construction.
+`PositionMetric` is a local component used in character distribution views. It represents the positional likelihood of a letter using a single horizontal bar.
 
----
+The filled portion of the bar corresponds to the percentage of occurrences at a given position. Values are rendered directly. No smoothing or interpolation is applied.
 
-## 3. Design Discipline
-- **Borders**: All grid containers use `bg-serenity` with a `1px` gap. This creates sharp, clean dividing lines between data cells without increasing the visual "weight" of the cards.
-- **Typography**: Strictly uses Inter Display. All technical values are rendered with the same weight as descriptive text to maintain an authoritative, non-decorative tone.
-- **Accordions**: Like the Home page, each detail view has an expandable description header. The circular trigger is placed directly beside the title for compact accessibility.
+## Comparative views
 
----
-*Developed by Ayomide Deji-Adeyale (@thekzbn).*
+### Side-by-side distributions
+
+Some views render paired bar charts to allow direct comparison. A common example is onset versus terminus distribution.
+
+Charts share scale and configuration to preserve comparability. Their purpose is contrast, not decoration.
+
+## Presentation constraints
+
+Containers are separated using background colour and one-pixel gaps rather than shadows or elevation. Typography is uniform. Numeric values are not visually emphasised beyond their position in the layout.
+
+Expandable descriptions follow the same interaction pattern used on the Home page. Triggers are colocated with titles to minimise scanning overhead.
