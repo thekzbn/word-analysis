@@ -6,7 +6,6 @@ export default {
   ],
   darkMode: 'class', 
   theme: {
-    // Explicitly defining colors to match the Golden Anchor system
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
@@ -15,11 +14,15 @@ export default {
       depth: 'var(--depth)',
       radiance: 'var(--radiance)',
       heritage: 'var(--heritage)',
-      void: '#121212',
+      void: 'var(--void)',
       white: '#ffffff',
       black: '#000000',
     },
-    // The strict six-step scale from Tiara Brand Guide
+    // Unified Typography
+    fontFamily: {
+      sans: ['"Inter Display"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+      mono: ['"Inter Display"', 'monospace'],
+    },
     spacing: {
       '0': '0',
       'px': '1px',
@@ -36,14 +39,10 @@ export default {
       'full': '100%',
       'screen': '100vh',
     },
-    // Placing fontFamily at top level to ensure absolute control
-    fontFamily: {
-      sans: ['"Inter Display"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-      mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
-    },
     extend: {
       borderRadius: {
         'sm': '0.25rem', 
+        'md': '0.5rem',
         'DEFAULT': '1rem', 
         'none': '0',
       },
@@ -57,6 +56,7 @@ export default {
         'DEFAULT': '500ms',
       },
       letterSpacing: {
+        'tightest': '-0.03em',
         'tight': '-0.02em',
       },
       fontSize: {

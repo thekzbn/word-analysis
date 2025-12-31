@@ -22,7 +22,7 @@ export const GitHubModal = ({ isOpen, onClose }: GitHubModalProps) => {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.98, opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.57, -0.01, 0.21, 0.89] }}
-            className="bg-purity border border-serenity w-full max-w-readable p-12 relative flex flex-col items-center text-center"
+            className="bg-purity border border-serenity w-full max-w-readable p-12 relative flex flex-col items-center text-center font-sans"
             onClick={(e) => e.stopPropagation()}
           >
             <button 

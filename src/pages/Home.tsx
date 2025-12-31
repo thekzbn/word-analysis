@@ -7,6 +7,7 @@ import { SimpleBarChart } from '../components/Charts';
 import { Hash, Activity, Compass, Fingerprint, PieChart, ArrowUpRight, Download, ChevronDown, ChevronUp, Github, Twitter, Globe, PenTool } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GitHubModal } from '../components/GitHubModal';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export const Home = () => {
   const topLetters = data.overall.slice(0, 12).map(i => ({ name: i.letter, value: i.count }));
   const topStarts = data.startsWith.slice(0, 8).map(i => ({ name: i.letter, value: i.count }));
 
-  const ButtonStyle = "text-xs font-bold text-radiance hover:text-heritage transition flex items-center justify-center gap-1 uppercase tracking-wide cursor-pointer bg-transparent border-none p-0 duration-500 ease-tiara";
+  const ButtonStyle = "text-xs font-bold text-radiance hover:text-heritage transition flex items-center justify-center gap-1 uppercase tracking-wide cursor-pointer bg-transparent border-none p-0 duration-500 ease-tiara font-sans";
 
   return (
     <div className="min-h-screen bg-purity text-depth font-sans p-6 md:p-12 transition-colors duration-500">
@@ -34,7 +35,7 @@ export const Home = () => {
               </div>
               <button 
                 onClick={() => setIsGitHubModalOpen(true)}
-                className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-depth/40 hover:text-radiance transition-colors duration-500 group"
+                className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-depth/40 hover:text-radiance transition-colors duration-500 group font-sans"
               >
                 <PenTool size={12} />
                 <span>Edit on GitHub</span>
@@ -45,14 +46,18 @@ export const Home = () => {
               <span className="text-heritage">Words</span>
             </h1>
           </div>
-          <div className="text-right hidden md:block">
-            <div className="text-3xl font-medium text-depth tracking-tight">{data.totalWords.toLocaleString()}</div>
-            <div className="text-xs uppercase tracking-widest text-depth/60">Words Analyzed</div>
+          <div className="flex flex-col items-end gap-4">
+            <ThemeToggle />
+            <div className="text-right hidden md:block">
+              <div className="text-3xl font-medium text-depth tracking-tight">{data.totalWords.toLocaleString()}</div>
+              <div className="text-xs uppercase tracking-widest text-depth/60">Words Analyzed</div>
+            </div>
           </div>
       </header>
 
       <main className="max-w-7xl mx-auto">
         <BentoGrid>
+          {/* Letter Frequency */}
           <BentoItem
             colSpan={5}
             rowSpan={2}
@@ -68,6 +73,7 @@ export const Home = () => {
              </div>
           </BentoItem>
 
+          {/* Word Structures */}
           <BentoItem
             colSpan={3}
             rowSpan={2}
@@ -92,6 +98,7 @@ export const Home = () => {
              </div>
           </BentoItem>
 
+          {/* Starting Letters */}
           <BentoItem
             colSpan={3}
             title="Starting Letters"
@@ -106,6 +113,7 @@ export const Home = () => {
              </div>
           </BentoItem>
 
+          {/* Double Consonants */}
           <BentoItem
             colSpan={3}
             title="Double Consonants"
@@ -133,6 +141,7 @@ export const Home = () => {
              </div>
           </BentoItem>
 
+          {/* Vowel Saturation */}
           <BentoItem
             colSpan={2}
             title="Vowel Saturation"
@@ -156,12 +165,13 @@ export const Home = () => {
 
         </BentoGrid>
 
+        {/* Project Thesis Section */}
         <section className="mt-24 max-w-readable mx-auto">
              <div className="flex items-center gap-4 py-4 border-b border-serenity">
                 <h2 className="text-xs font-bold uppercase tracking-widest text-depth/80">Project Thesis</h2>
                 <button 
                     onClick={() => setShowThesis(!showThesis)}
-                    className="p-1.5 rounded-full border border-serenity text-depth hover:text-radiance hover:border-radiance transition duration-500 ease-tiara flex items-center justify-center"
+                    className="p-1.5 rounded-full border border-serenity text-depth hover:text-radiance hover:border-radiance transition duration-500 ease-tiara flex items-center justify-center font-sans"
                 >
                     {showThesis ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                 </button>
@@ -189,20 +199,21 @@ export const Home = () => {
              </AnimatePresence>
         </section>
 
+        {/* Footer */}
         <footer className="mt-24 border-t border-serenity pt-8 flex flex-col md:flex-row justify-between items-center text-xs uppercase tracking-widest text-depth/50 font-medium max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row items-center gap-6 mb-4 md:mb-0">
-                 <span>2025 @thekzbn</span>
+                 <span className="font-sans">2025 @thekzbn</span>
                  <div className="flex items-center gap-4">
-                    <button onClick={() => setIsGitHubModalOpen(true)} className="hover:text-radiance transition duration-500 flex items-center gap-1 uppercase tracking-widest text-[10px] font-bold bg-transparent border-none p-0 cursor-pointer">
+                    <button onClick={() => setIsGitHubModalOpen(true)} className="hover:text-radiance transition duration-500 flex items-center gap-1 uppercase tracking-widest text-[10px] font-bold bg-transparent border-none p-0 cursor-pointer text-depth/50 font-sans">
                         <PenTool size={14} /> Edit
                     </button>
-                    <a href="https://github.com/thekzbn/" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1">
+                    <a href="https://github.com/thekzbn/" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1 font-sans">
                         <Github size={14} /> GitHub
                     </a>
-                    <a href="https://x.com/thekzbn_me" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1">
+                    <a href="https://x.com/thekzbn_me" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1 font-sans">
                         <Twitter size={14} /> X
                     </a>
-                    <a href="https://thekzbn.name.ng" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1">
+                    <a href="https://thekzbn.name.ng" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1 font-sans">
                         <Globe size={14} /> My Site
                     </a>
                  </div>
@@ -210,7 +221,7 @@ export const Home = () => {
             <a 
                 href="/top-5000-words.txt" 
                 download 
-                className="flex items-center gap-1 hover:text-radiance transition duration-500 ease-tiara"
+                className="flex items-center gap-1 hover:text-radiance transition duration-500 ease-tiara font-sans"
             >
                 <Download size={14} />
                 Raw Data (.txt)

@@ -3,9 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { analyzeWords } from '../utils/analysis';
 import wordList from '../data/top-5000-words.json';
 import { SimpleBarChart } from '../components/Charts';
-import { ArrowLeft, X, ChevronDown, ChevronUp, PenTool } from 'lucide-react';
+import { ArrowLeft, X, ChevronDown, ChevronUp, PenTool, Github, Twitter, Globe, Download, ArrowDownAZ, ArrowDownNarrowWide } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GitHubModal } from '../components/GitHubModal';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 export const Detail = () => {
   const { type } = useParams();
@@ -14,6 +15,7 @@ export const Detail = () => {
   const [selectedPattern, setSelectedPattern] = useState<{pattern: string, words: string[]} | null>(null);
   const [showDesc, setShowDesc] = useState(false);
   const [isGitHubModalOpen, setIsGitHubModalOpen] = useState(false);
+  const [letterSort, setLetterSort] = useState<'frequency' | 'alphabetical'>('frequency');
 
   const getPageInfo = () => {
     switch (type) {
@@ -49,13 +51,39 @@ export const Detail = () => {
 
   const { title, desc } = getPageInfo();
 
+  const sortedLetters = useMemo(() => {
+    if (type !== 'letters') return [];
+    return [...data.breakdown].sort((a, b) => {
+      if (letterSort === 'frequency') {
+        return b.total - a.total;
+      }
+      return a.letter.localeCompare(b.letter);
+    });
+  }, [data.breakdown, letterSort, type]);
+
   const renderContent = () => {
     switch (type) {
       case 'letters':
         return (
           <div className="space-y-12">
+            <div className="flex justify-end gap-6 mb-6">
+                <button 
+                    onClick={() => setLetterSort('frequency')}
+                    className={`flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest transition-colors duration-500 font-sans ${letterSort === 'frequency' ? 'text-radiance' : 'text-depth/40 hover:text-depth'}`}
+                >
+                    <ArrowDownNarrowWide size={12} />
+                    Frequency
+                </button>
+                <button 
+                    onClick={() => setLetterSort('alphabetical')}
+                    className={`flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest transition-colors duration-500 font-sans ${letterSort === 'alphabetical' ? 'text-radiance' : 'text-depth/40 hover:text-depth'}`}
+                >
+                    <ArrowDownAZ size={12} />
+                    Alphabetical
+                </button>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-serenity border border-serenity rounded overflow-hidden">
-               {data.breakdown.map((item) => (
+               {sortedLetters.map((item) => (
                    <div key={item.letter} className="bg-purity p-6 hover:bg-serenity/10 transition duration-500 ease-tiara group">
                        <div className="flex justify-between items-end mb-6">
                            <span className="text-4xl font-bold text-depth group-hover:text-radiance transition duration-500">{item.letter}</span>
@@ -114,7 +142,7 @@ export const Detail = () => {
                                      <span className="text-[9px] uppercase font-bold text-depth/70 block mb-1">Representative:</span>
                                      <span className="text-sm font-bold text-depth">{pat.example}</span>
                                  </div>
-                                 <span className="text-[10px] uppercase font-bold text-radiance opacity-0 group-hover:opacity-100 transition-opacity duration-500">View List</span>
+                                 <span className="text-[10px] uppercase font-bold text-radiance opacity-0 group-hover:opacity-100 transition-opacity duration-500 font-sans">View List</span>
                              </div>
                         </div>
                     ))}
@@ -133,7 +161,7 @@ export const Detail = () => {
                                  initial={{ y: 20, opacity: 0 }}
                                  animate={{ y: 0, opacity: 1 }}
                                  exit={{ y: 20, opacity: 0 }}
-                                 className="bg-purity border border-serenity w-full max-w-2xl max-h-[80vh] flex flex-col shadow-none rounded overflow-hidden"
+                                 className="bg-purity border border-serenity w-full max-w-2xl max-h-[80vh] flex flex-col shadow-none rounded overflow-hidden font-sans"
                                  onClick={e => e.stopPropagation()}
                              >
                                  <div className="p-6 border-b border-serenity flex justify-between items-center">
@@ -141,14 +169,14 @@ export const Detail = () => {
                                          <h3 className="text-2xl font-bold text-depth tracking-tight">{selectedPattern.pattern}</h3>
                                          <span className="text-xs uppercase tracking-widest text-depth/60">{selectedPattern.words.length} Matches Found</span>
                                      </div>
-                                     <button onClick={() => setSelectedPattern(null)} className="text-depth hover:text-heritage transition">
+                                     <button onClick={() => setSelectedPattern(null)} className="text-depth hover:text-heritage transition font-sans">
                                          <X size={24} />
                                      </button>
                                  </div>
                                  <div className="p-6 overflow-y-auto">
                                      <div className="flex flex-wrap gap-3">
                                          {selectedPattern.words.map((word, i) => (
-                                             <span key={i} className="px-2 py-1 bg-serenity/20 border border-serenity text-xs text-depth rounded-sm">
+                                             <span key={i} className="px-2 py-1 bg-serenity/20 border border-serenity text-xs font-bold text-depth rounded-sm font-sans">
                                                  {word}
                                              </span>
                                          ))}
@@ -226,18 +254,21 @@ export const Detail = () => {
              <div className="flex justify-between items-center mb-12">
                <button 
                   onClick={() => navigate('/')}
-                  className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-radiance hover:text-heritage transition duration-500 ease-tiara group"
+                  className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-radiance hover:text-heritage transition duration-500 ease-tiara group font-sans"
                >
                   <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
                   Return to Matrix
                </button>
-               <button 
-                  onClick={() => setIsGitHubModalOpen(true)}
-                  className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-depth/40 hover:text-radiance transition-colors duration-500"
-               >
-                  <PenTool size={12} />
-                  <span>Edit on GitHub</span>
-               </button>
+               <div className="flex items-center gap-4">
+                 <ThemeToggle />
+                 <button 
+                    onClick={() => setIsGitHubModalOpen(true)}
+                    className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-depth/40 hover:text-radiance transition-colors duration-500 font-sans"
+                 >
+                    <PenTool size={12} />
+                    <span>Edit on GitHub</span>
+                 </button>
+               </div>
              </div>
 
             <section className="mb-12">
@@ -245,7 +276,7 @@ export const Detail = () => {
                     <h2 className="text-4xl font-bold text-depth tracking-tight">{title}</h2>
                     <button 
                         onClick={() => setShowDesc(!showDesc)}
-                        className="p-1.5 rounded-full border border-serenity text-depth hover:text-radiance hover:border-radiance transition duration-500 ease-tiara flex items-center justify-center"
+                        className="p-1.5 rounded-full border border-serenity text-depth hover:text-radiance hover:border-radiance transition duration-500 ease-tiara flex items-center justify-center font-sans"
                     >
                         {showDesc ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                     </button>
@@ -277,18 +308,18 @@ export const Detail = () => {
             {/* Footer */}
             <footer className="mt-24 border-t border-serenity pt-8 flex flex-col md:flex-row justify-between items-center text-xs uppercase tracking-widest text-depth/50 font-medium">
                 <div className="flex flex-col md:flex-row items-center gap-6 mb-4 md:mb-0">
-                    <span>2025 @thekzbn</span>
+                    <span className="font-sans">2025 @thekzbn</span>
                     <div className="flex items-center gap-4">
-                        <button onClick={() => setIsGitHubModalOpen(true)} className="hover:text-radiance transition duration-500 flex items-center gap-1 uppercase tracking-widest text-[10px] font-bold bg-transparent border-none p-0 cursor-pointer">
+                        <button onClick={() => setIsGitHubModalOpen(true)} className="hover:text-radiance transition duration-500 flex items-center gap-1 uppercase tracking-widest text-[10px] font-bold bg-transparent border-none p-0 cursor-pointer text-depth/50 font-sans">
                             <PenTool size={14} /> Edit
                         </button>
-                        <a href="https://github.com/thekzbn/" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1">
+                        <a href="https://github.com/thekzbn/" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1 font-sans">
                             <Github size={14} /> GitHub
                         </a>
-                        <a href="https://x.com/thekzbn_me" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1">
+                        <a href="https://x.com/thekzbn_me" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1 font-sans">
                             <Twitter size={14} /> X
                         </a>
-                        <a href="https://thekzbn.name.ng" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1">
+                        <a href="https://thekzbn.name.ng" target="_blank" rel="noopener noreferrer" className="hover:text-radiance transition duration-500 flex items-center gap-1 font-sans">
                             <Globe size={14} /> My Site
                         </a>
                     </div>
@@ -296,7 +327,7 @@ export const Detail = () => {
                 <a 
                     href="/top-5000-words.txt" 
                     download 
-                    className="flex items-center gap-1 hover:text-radiance transition duration-500 ease-tiara"
+                    className="flex items-center gap-1 hover:text-radiance transition duration-500 ease-tiara font-sans"
                 >
                     <Download size={14} />
                     Raw Data (.txt)
@@ -309,9 +340,9 @@ export const Detail = () => {
 
 const PositionMetric = ({ label, count, pct }: { label: string, count: number, pct: number }) => (
     <div>
-        <div className="flex justify-between items-baseline mb-1">
+        <div className="flex justify-between items-baseline mb-1 font-sans">
             <span className="text-[9px] uppercase font-bold text-depth/60 tracking-tighter">{label}</span>
-            <span className="text-[9px] text-depth/80">{count} ({pct}%)</span>
+            <span className="text-[9px] font-bold text-depth/80">{count} ({pct}%)</span>
         </div>
         <div className="h-px w-full bg-serenity overflow-hidden">
             <div style={{ width: `${pct}%` }} className="h-full bg-radiance"></div>

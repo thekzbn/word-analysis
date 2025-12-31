@@ -31,6 +31,10 @@ The modal is rendered as a fixed overlay. Long lists are scrollable. The backgro
 
 The filled portion of the bar corresponds to the percentage of occurrences at a given position. Values are rendered directly. No smoothing or interpolation is applied.
 
+### Character set sorting
+
+Character distribution views support re-ordering. Users can toggle between frequency-based (descending) and alphabetical order. Sorting is performed on the active data breakdown without re-triggering the core analysis pipeline.
+
 ## Comparative views
 
 ### Side-by-side distributions
